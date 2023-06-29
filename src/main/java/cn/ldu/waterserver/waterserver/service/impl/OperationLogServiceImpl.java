@@ -17,4 +17,9 @@ public class OperationLogServiceImpl implements IOperationLogService {
     public List<OperationLog> queryOperationLog(String operation_type, int page, int page_count) {
         return dao.queryOperationLog(operation_type,page,page_count);
     }
+
+    @Override
+    public int getCount(String operation_type) {
+        return dao.getCount(operation_type);
+    }
 }

@@ -18,4 +18,9 @@ public class HistoricalPaymentServiceImpl implements IHistoricalPaymentService {
     public List<HistoricalPayment> queryHistoricalPaymentService(String address, String device_code, String user_code, String username, String start_time, String end_time, int page, int page_count) {
         return dao.queryHistoricalPaymentDao(address,device_code,user_code,username,start_time,end_time,page,page_count);
     }
+
+    @Override
+    public int getCount(String address, String device_code, String user_code, String username, String start_time, String end_time) {
+        return dao.getCount(address,device_code,user_code,username,start_time,end_time);
+    }
 }

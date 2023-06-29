@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IScheduledTasksService {
     List<ScheduledTasks> queryScheduledTasks(String water_meter_number,int page, int page_count);
+
+    int getCount(String water_meter_number);
 }

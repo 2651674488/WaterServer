@@ -17,15 +17,26 @@ public class OperationLogDaoImpl implements IOperationLogDao {
     @Override
     public List<OperationLog> queryOperationLog(String operation_type, int page, int page_count) {
         StringBuffer sql = new StringBuffer();
-        sql.append("SELECT ai.log_type, di.device_code, ai.operator, ai.operation_time, ai.ip_address \n" +
+        sql.append("SELECT ai.log_type, ai.device_code, ai.operator, ai.operation_time, ai.ip_address \n" +
                 "FROM account_info ai \n" +
-                "LEFT JOIN user_info ui ON ai.user_id = ui.id \n" +
-                "LEFT JOIN device_info di ON ai.device_code = di.device_code \n"
+                "LEFT JOIN user_info ui ON ai.user_id = ui.id \n"
                 );
-        if(operation_type != null){ sql.append("WHERE di.operation_type LIKE \n").append("'%" + operation_type + "%'");}
+        if(operation_type != null){ sql.append("WHERE ai.log_type LIKE \n").append("'%" + operation_type + "%'");}
         sql.append("LIMIT " + (page - 1) * page_count  + "," + page_count + ";");
 
         List<OperationLog> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper<>(OperationLog.class));
         return list;
+    }
+
+    @Override
+    public int getCount(String operation_type) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT count(*) \n" +
+                "FROM account_info ai \n" +
+                "LEFT JOIN user_info ui ON ai.user_id = ui.id \n"
+        );
+        if(operation_type != null){ sql.append("WHERE ai.log_type LIKE \n").append("'%" + operation_type + "%'");}
+        int cnt = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+        return cnt;
     }
 }

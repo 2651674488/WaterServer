@@ -5,11 +5,11 @@ public class QueryFlow {
     private String username;
     private String house_number;
     private String device_code;
-    private float balance;
+    private Float balance;
     private String status;
-    private float settle_flow;
-    private float total_flow;
-    private float last_month_flow;
+    private Float settle_flow;
+    private Float total_flow;
+    private Float last_month_flow;
     private String created_at;
     private String flow_chart_url;
 
@@ -45,11 +45,11 @@ public class QueryFlow {
         this.device_code = device_code;
     }
 
-    public float getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(Float balance) {
         this.balance = balance;
     }
 
@@ -61,27 +61,27 @@ public class QueryFlow {
         this.status = status;
     }
 
-    public float getSettle_flow() {
+    public Float getSettle_flow() {
         return settle_flow;
     }
 
-    public void setSettle_flow(float settle_flow) {
+    public void setSettle_flow(Float settle_flow) {
         this.settle_flow = settle_flow;
     }
 
-    public float getTotal_flow() {
+    public Float getTotal_flow() {
         return total_flow;
     }
 
-    public void setTotal_flow(float total_flow) {
+    public void setTotal_flow(Float total_flow) {
         this.total_flow = total_flow;
     }
 
-    public float getLast_month_flow() {
+    public Float getLast_month_flow() {
         return last_month_flow;
     }
 
-    public void setLast_month_flow(float last_month_flow) {
+    public void setLast_month_flow(Float last_month_flow) {
         this.last_month_flow = last_month_flow;
     }
 

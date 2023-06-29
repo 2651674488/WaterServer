@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IOperationLogDao {
     List<OperationLog> queryOperationLog(String operation_type, int page, int page_count);
+
+    int getCount(String operation_type);
 }

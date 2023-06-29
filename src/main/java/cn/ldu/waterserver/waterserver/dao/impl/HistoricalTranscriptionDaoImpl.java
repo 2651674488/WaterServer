@@ -25,16 +25,37 @@ public class HistoricalTranscriptionDaoImpl implements IHistoricalTranscriptionD
                 "LEFT JOIN flow_info fi ON ui.id = fi.user_id\n");
         if(address != null || device_code != null || user_code != null || username != null || start_time != null || end_time != null){
             sql.append("WHERE 1 = 1");
-            if(address != null){sql.append(" and di.address LIKE %" + address + "%");}
-            if(username != null){sql.append(" and di.username LIKE %" + username + "%");}
-            if(device_code != null){sql.append(" and di.device_code LIKE %" + device_code + "%");}
-            if(user_code != null){sql.append(" and di.user_code LIKE %" + user_code + "%");}
+            if(address != null){sql.append(" and ui.house_number LIKE '%" + address + "%'");}
+            if(username != null){sql.append(" and ui.username LIKE '%" + username + "%'");}
+            if(device_code != null){sql.append(" and di.device_code LIKE '%" + device_code + "%'");}
+            if(user_code != null){sql.append(" and di.user_code LIKE '%" + user_code + "%'");}
             if(start_time != null){sql.append(" and "+start_time+" < di.collected_at ");}
             if (end_time != null){sql.append(" and "+end_time+" > di.collected_at");}
 
         }
-        sql.append("LIMIT " + (page - 1) * page_count  + "," + page_count + ";");
+        sql.append(" LIMIT " + (page - 1) * page_count  + "," + page_count + ";");
         List<HistoricalTranscription> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper<>(HistoricalTranscription.class));
         return list;
+    }
+
+    @Override
+    public int getCount(String address, String device_code, String user_code, String username, String start_time, String end_time) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT count(*) \n" +
+                "\n" +
+                "FROM user_info ui \n" +
+                "LEFT JOIN device_info di ON ui.id = di.user_id \n" +
+                "LEFT JOIN flow_info fi ON ui.id = fi.user_id\n");
+        if(address != null || device_code != null || user_code != null || username != null || start_time != null || end_time != null){
+            sql.append("WHERE 1 = 1");
+            if(address != null){sql.append(" and ui.house_number LIKE '%" + address + "%'");}
+            if(username != null){sql.append(" and ui.username LIKE '%" + username + "%'");}
+            if(device_code != null){sql.append(" and di.device_code LIKE '%" + device_code + "%'");}
+            if(user_code != null){sql.append(" and di.user_code LIKE '%" + user_code + "%'");}
+            if(start_time != null){sql.append(" and "+start_time+" < di.collected_at ");}
+            if (end_time != null){sql.append(" and "+end_time+" > di.collected_at");}
+        }
+        int cnt = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+        return cnt;
     }
 }

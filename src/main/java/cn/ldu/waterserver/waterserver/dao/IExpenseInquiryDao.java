@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IExpenseInquiryDao {
 
-    List<ExpenseInquiry> expenseInquiry(Integer region_id, String device_code,int page,int page_count);
+    List<ExpenseInquiry> expenseInquiry(Integer region_id,String user_name,String user_code,int page,int page_count);
+
+    int getCount(Integer region_id,String user_name,String user_code);
 
 }

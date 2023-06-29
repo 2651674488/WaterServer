@@ -27,4 +27,15 @@ public class ScheduledTasksDaoImpl implements IScheduledTasksDao {
         List<ScheduledTasks> list = jdbcTemplate.query(sql.toString(),new BeanPropertyRowMapper<>(ScheduledTasks.class));
         return list;
     }
+
+    @Override
+    public int getCount(String water_meter_number) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT count(*) \n" +
+                "FROM device_info\n"
+        );
+        if (water_meter_number != null){sql.append("WHERE water_meter_number LIKE \n").append("'%" + water_meter_number + "%'");}
+        int cnt = jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+        return cnt;
+    }
 }

@@ -18,4 +18,9 @@ public class ScheduledTasksServiceImpl implements IScheduledTasksService {
     public List<ScheduledTasks> queryScheduledTasks(String water_meter_number, int page, int page_count) {
         return dao.queryScheduledTasks(water_meter_number,page,page_count);
     }
+
+    @Override
+    public int getCount(String water_meter_number) {
+        return dao.getCount(water_meter_number);
+    }
 }

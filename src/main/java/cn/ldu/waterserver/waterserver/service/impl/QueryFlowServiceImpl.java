@@ -18,4 +18,9 @@ public class QueryFlowServiceImpl implements IQueryFlowService {
     public List<QueryFlow> queryFlowService(Integer region_id,String device_code, int page, int page_count) {
         return dao.queryFlow(region_id,device_code,page,page_count);
     }
+
+    @Override
+    public int queryCount(Integer region_id, String device_code) {
+        return dao.getCount(region_id,device_code);
+    }
 }
